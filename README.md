@@ -1,4 +1,3 @@
-# 4fach-Spinne
-Eine Reflexionshilfe zur veränderten Lern- und Prüfungsgestaltung
+# 4fach-Spinne: eine Reflexionshilfe zu veränderter Lern- und Prüfungsgestaltung
 
 Diese 4fach-Spinne wurde von Regina Schulz auf Basis diverser Vorarbeiten mit ChatGPT gepromptet und [via LinkedIn geteilt](https://www.linkedin.com/posts/regina-schulz-28963511b_praesfungsformate-studentagency-mitgestalten-activity-7323379361078784002-Cqxq?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAC8h-V8BvMRB33DTayOIx72i1XG_Wk9IL5Q). Ich übertrage die Spinne hier außerhalb von ChatGPT, um einfacher und offen daran weiter arbeiten zu können und Zugriff außerhalb des KI-Sprachmodells zu ermöglichen.
