@@ -13,7 +13,7 @@
     <p>Workshop an der HAWK am 19. Mai 2025</p>
     <nav>
       <ul>
-        <li><a href="index.html">Start</a></li>
+        <li><a href="index.html">Ergebnisse</a></li>
         <li><a href="fragen.html">Fragen</a></li>
         <li><a href="reflexionstool.html">Reflexionstool</a></li>
         <li><a href="mitschriebe.html">Mitschriebe</a></li>
@@ -33,6 +33,7 @@
     <p class="controls">
       <label for="mode">Wähle einen Fokus:</label>
       <select id="mode">
+        <option value="" disabled selected>Dimension wählen</option>
         <option value="leben">leben</option>
         <option value="lernen">lernen</option>
         <option value="gestalten">gestalten</option>
@@ -145,11 +146,11 @@ const chartData = {
   datasets: [
     {
       label: '',
-      data: Array(7).fill(3),
+      data: Array(7).fill(0),
       fill: true,
-      borderColor: '',
-      backgroundColor: '',
-      pointBackgroundColor: '',
+      borderColor: '#ccc',
+      backgroundColor: 'rgba(200, 200, 200, 0.2)',
+      pointBackgroundColor: '#ccc',
       pointBorderColor: '#fff'
     }
   ]
@@ -203,7 +204,7 @@ function renderSliders(mode) {
     slider.min = 1;
     slider.max = 6;
     slider.step = 1;
-    slider.value = chartData.datasets[0].data[index];
+    slider.value = 3;
     slider.id = `slider-${index}`;
     slider.style.width = '100%';
 
@@ -226,14 +227,13 @@ function renderSliders(mode) {
     sliderContainer.appendChild(wrapper);
   });
 
+  chartData.datasets[0].data = Array(7).fill(3);
   chart.update();
 }
 
 modeSelect.addEventListener('change', (e) => {
   renderSliders(e.target.value);
 });
-
-renderSliders('leben');
 </script>
 </body>
 </html>
