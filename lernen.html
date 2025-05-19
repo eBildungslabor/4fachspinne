@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-    <title>Werkstatt Prüfungsgestaltung – leben</title>
+    <title>Werkstatt Prüfungsgestaltung</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -28,7 +28,6 @@
 
     <canvas id="formatSpinne"></canvas>
     <div class="slider-container" id="sliders"></div>
-
   </main>
 
   <footer>
@@ -42,33 +41,33 @@
     ];
 
     const prompts = [
-      'Frage 1',
-      'Frage 2',
-      'Frage 3',
-      'Frage 4',
-      'Frage 5',
-      'Frage 6',
-      'Frage 7'
+      'Wie können wir die Lernumgebung gestalten, um die Beziehung zwischen Lehrenden und Lernenden (sowie untereinander) zu fördern – für den Einzelnen und die Gemeinschaft?',
+      'Wie können wir Lernprozesse transparent, interaktiv, partizipativ und aufeinander aufbauend gestalten – unter Berücksichtigung individueller Lebensrealitäten?',
+      'Frage zu Ressourcen (Platzhalter)',
+      'Frage zu Aufgaben + Kompetenzen (Platzhalter)',
+      'Wie können wir miteinander lernen – und in welchen Formen und Formaten zusammenarbeiten?',
+      'Wie können wir Lernergebnisse erzielen und sichern?',
+      'Wie können wir sicherstellen, dass Lernende und Lehrende gewinnbringende Rückmeldungen (Feedback) erhalten?'
     ];
 
     const labelsLeft = [
-      'Label 1 links',
-      'Label 2 links',
-      'Label 3 links',
-      'Label 4 links',
-      'Label 5 links',
-      'Label 6 links',
-      'Label 7 links'
+      'distanzorientiert',
+      'allgemein',
+      'Platzhalter links',
+      'Platzhalter links',
+      'einzeln und Einfalt',
+      'gar nicht',
+      'klappt nicht'
     ];
 
     const labelsRight = [
-      'Label 1 rechts',
-      'Label 2 rechts',
-      'Label 3 rechts',
-      'Label 4 rechts',
-      'Label 5 rechts',
-      'Label 6 rechts',
-      'Label 7 rechts'
+      'beziehungsorientiert',
+      'individuell',
+      'Platzhalter rechts',
+      'Platzhalter rechts',
+      'zusammen und Vielfalt',
+      'sehr viel',
+      'klappt'
     ];
 
     const ctx = document.getElementById('formatSpinne').getContext('2d');
@@ -78,9 +77,9 @@
         {
           data: Array(7).fill(3),
           fill: true,
-          borderColor: 'rgb(153, 102, 255)',
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          pointBackgroundColor: 'rgb(153, 102, 255)',
+          borderColor: 'rgb(54, 162, 235)',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
           pointBorderColor: '#fff'
         }
       ]
