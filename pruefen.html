@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    <title>Werkstatt Prüfungsgestaltung</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+
+  <header>
+    <h1>Werkstatt Prüfungsgestaltung</h1>
+    <p>Workshop an der HAWK am 19. Mai 2025</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="pruefen.html">Prüfen</a></li>
+        <li><a href="lernen.html">Lernen</a></li>
+        <li><a href="transformation.html">Transformation</a></li>
+        <li><a href="wohlbefinden.html">Wohlbefinden</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Dimension: Prüfen</h2>
+
+    <canvas id="formatSpinne"></canvas>
+    <div class="slider-container" id="sliders"></div>
+
+    <script>
+      const labels = [
+        'Raum', 'Zeit + Prozess', 'Material + Hilfsmittel', 'Aufgaben + Fragen', 'Sozialform', 'Lernprodukt', 'Feedback + Reflexion'
+      ];
+
+      const ctx = document.getElementById('formatSpinne').getContext('2d');
+      let chartData = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Prüfen gestalten',
+            data: Array(7).fill(3),
+            fill: true,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            pointBackgroundColor: 'rgb(75, 192, 192)',
+            pointBorderColor: '#fff'
+          }
+        ]
+      };
+
+      let chart = new Chart(ctx, {
+        type: 'radar',
+        data: chartData,
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              min: 1,
+              max: 6,
+              startAngle: 0,
+              ticks: {
+                stepSize: 1,
+                display: false
+              }
+            }
+          }
+        }
+      });
+
+      const prompts = [
+        'Wie können wir eine möglichst freie Wahl des Ortes der Prüfung ermöglichen?',
+        'Wie können wir Prüfungen so gestalten, dass Zeitpunkt und Dauer flexibel wählbar sind?',
+        'Wie können wir den Zugang zu vielfältigen und individuellen Materialien und Hilfsmitteln in Prüfungen ermöglichen?',
+        'Wie können wir offene, komplexe und individuelle Fragestellungen in Prüfungen integrieren?',
+        'Wie können wir Prüfungsformate schaffen, die Zusammenarbeit ermöglichen?',
+        'Wie können wir Prüfungsprodukte ermöglichen, die verschiedene Darstellungsformen zulassen?',
+        'Wie können wir formative, lernförderliche Rückmeldungen in Prüfungsprozesse integrieren?'
+      ];
+
+      const sliderContainer = document.getElementById('sliders');
+
+      prompts.forEach((question, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('slider-label');
+
+        const label = document.createElement('label');
+        label.setAttribute('for', `slider-${index}`);
+        label.innerText = question;
+
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 1;
+        slider.max = 6;
+        slider.step = 1;
+        slider.value = chartData.datasets[0].data[index];
+        slider.id = `slider-${index}`;
+
+        slider.addEventListener('input', () => {
+          chartData.datasets[0].data[index] = parseInt(slider.value);
+          chart.update();
+        });
+
+        wrapper.appendChild(label);
+        wrapper.appendChild(slider);
+        sliderContainer.appendChild(wrapper);
+      });
+    </script>
+  </main>
+
+  <footer>
+    <p>Erstellt von Nele Hirsch <a href="https://ebildungslabor.de">(eBildungslabor)</a> basierend auf Vorarbeiten des Instituts für zeitgemäße Prüfungskultur und Regina Schulz für die HAWK im Mai 2025 | Lizenz: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a></p>
+  </footer>
+
+  </body>
+</html>
