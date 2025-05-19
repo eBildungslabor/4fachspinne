@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-    <title>Werkstatt Prüfungsgestaltung – leben</title>
+    <title>Werkstatt Prüfungsgestaltung</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -28,7 +28,6 @@
 
     <canvas id="formatSpinne"></canvas>
     <div class="slider-container" id="sliders"></div>
-
   </main>
 
   <footer>
@@ -42,33 +41,33 @@
     ];
 
     const prompts = [
-      'Frage 1',
-      'Frage 2',
-      'Frage 3',
-      'Frage 4',
-      'Frage 5',
-      'Frage 6',
-      'Frage 7'
+      'Wie können wir Umgebungen schaffen, in denen Gemeinschaft offen und vielfältig stattfinden kann?',
+      'Wie können wir die Lebenswelten der Hochschulangehörigen kontinuierlich einbeziehen?',
+      'Wie können wir individuelle Ressourcen der Gemeinschaft erkennen und nutzbar machen?',
+      'Wie können wir Sozialkompetenzen fördern?',
+      'Wie können wir Kollaboration verorten und fördern?',
+      'Wie stellen wir eine Verbindung zwischen Lernergebnis und Lebenswelten her?',
+      'Frage zu Feedback und Reflexion (Platzhalter)'
     ];
 
     const labelsLeft = [
-      'Label 1 links',
-      'Label 2 links',
-      'Label 3 links',
-      'Label 4 links',
-      'Label 5 links',
-      'Label 6 links',
-      'Label 7 links'
+      'statisch',
+      'direktiv',
+      'egozentriert',
+      'theoriegeleitet',
+      'hochschulintern',
+      'frontal',
+      'Platzhalter links'
     ];
 
     const labelsRight = [
-      'Label 1 rechts',
-      'Label 2 rechts',
-      'Label 3 rechts',
-      'Label 4 rechts',
-      'Label 5 rechts',
-      'Label 6 rechts',
-      'Label 7 rechts'
+      'wandelbar',
+      'partizipativ',
+      'gemeinschaftszentriert',
+      'praxisorientiert',
+      'externes Umfeld',
+      'interaktiv',
+      'Platzhalter rechts'
     ];
 
     const ctx = document.getElementById('formatSpinne').getContext('2d');
@@ -78,9 +77,9 @@
         {
           data: Array(7).fill(3),
           fill: true,
-          borderColor: 'rgb(153, 102, 255)',
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          pointBackgroundColor: 'rgb(153, 102, 255)',
+          borderColor: 'rgb(255, 205, 86)',
+          backgroundColor: 'rgba(255, 205, 86, 0.2)',
+          pointBackgroundColor: 'rgb(255, 205, 86)',
           pointBorderColor: '#fff'
         }
       ]
