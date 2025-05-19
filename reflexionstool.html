@@ -13,7 +13,7 @@
     <p>Workshop an der HAWK am 19. Mai 2025</p>
     <nav>
       <ul>
-        <li><a href="index.html">Ergebnisse</a></li>
+        <li><a href="index.html">Start</a></li>
         <li><a href="fragen.html">Fragen</a></li>
         <li><a href="reflexionstool.html">Reflexionstool</a></li>
         <li><a href="mitschriebe.html">Mitschriebe</a></li>
@@ -40,8 +40,8 @@
       </select>
     </p>
 
-    <canvas id="formatSpinne"></canvas>
     <div class="slider-container" id="sliders"></div>
+    <canvas id="formatSpinne"></canvas>
   </main>
 
   <footer>
@@ -132,16 +132,24 @@ const labelSets = {
   ]
 };
 
+const colorSets = {
+  leben:   ['rgb(54, 162, 235)', 'rgba(54, 162, 235, 0.2)'],
+  lernen:  ['rgb(255, 206, 86)', 'rgba(255, 206, 86, 0.2)'],
+  gestalten: ['rgb(153, 102, 255)', 'rgba(153, 102, 255, 0.2)'],
+  pruefen: ['rgb(255, 99, 132)', 'rgba(255, 99, 132, 0.2)']
+};
+
 const ctx = document.getElementById('formatSpinne').getContext('2d');
 const chartData = {
   labels: labels,
   datasets: [
     {
+      label: '',
       data: Array(7).fill(3),
       fill: true,
-      borderColor: 'rgb(75, 192, 192)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      pointBackgroundColor: 'rgb(75, 192, 192)',
+      borderColor: '',
+      backgroundColor: '',
+      pointBackgroundColor: '',
       pointBorderColor: '#fff'
     }
   ]
@@ -162,7 +170,7 @@ const chart = new Chart(ctx, {
       }
     },
     plugins: {
-      legend: { display: false },
+      legend: { display: true },
       title: { display: false }
     }
   }
@@ -173,6 +181,12 @@ const modeSelect = document.getElementById('mode');
 
 function renderSliders(mode) {
   sliderContainer.innerHTML = '';
+  const colors = colorSets[mode];
+  chartData.datasets[0].label = mode;
+  chartData.datasets[0].borderColor = colors[0];
+  chartData.datasets[0].backgroundColor = colors[1];
+  chartData.datasets[0].pointBackgroundColor = colors[0];
+
   prompts[mode].forEach((question, index) => {
     const wrapper = document.createElement('div');
     wrapper.style.marginBottom = '2em';
@@ -211,6 +225,8 @@ function renderSliders(mode) {
     wrapper.appendChild(description);
     sliderContainer.appendChild(wrapper);
   });
+
+  chart.update();
 }
 
 modeSelect.addEventListener('change', (e) => {
