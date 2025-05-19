@@ -6,6 +6,26 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
     <title>Werkstatt Prüfungsgestaltung</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .slider-label {
+        margin-bottom: 2rem;
+      }
+      .slider-label label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      .slider-label input[type=range] {
+        width: 100%;
+        margin-bottom: 0.3rem;
+      }
+      .slider-label .range-labels {
+        font-size: 0.9em;
+        color: #555;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
   </head>
   <body>
 
@@ -69,7 +89,6 @@
         labels: labels,
         datasets: [
           {
-            label: 'Prüfen gestalten',
             data: Array(7).fill(3),
             fill: true,
             borderColor: 'rgb(75, 192, 192)',
@@ -117,13 +136,14 @@
         slider.value = chartData.datasets[0].data[index];
         slider.id = `slider-${index}`;
 
-        const description = document.createElement('div');
-        description.innerHTML = `<span style='float:left;'>${labelsLeft[index]}</span><span style='float:right;'>${labelsRight[index]}</span><div style='clear:both'></div>`;
-
         slider.addEventListener('input', () => {
           chartData.datasets[0].data[index] = parseInt(slider.value);
           chart.update();
         });
+
+        const description = document.createElement('div');
+        description.classList.add('range-labels');
+        description.innerHTML = `<span>${labelsLeft[index]}</span><span>${labelsRight[index]}</span>`;
 
         wrapper.appendChild(label);
         wrapper.appendChild(slider);
