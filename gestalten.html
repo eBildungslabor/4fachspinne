@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
-    <title>Werkstatt Prüfungsgestaltung – leben</title>
+    <title>Werkstatt Prüfungsgestaltung</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -18,7 +18,7 @@
         <li><a href="leben.html">leben</a></li>
         <li><a href="lernen.html">lernen</a></li>
         <li><a href="gestalten.html">gestalten</a></li>
-        <li><a href="pruefen.html">pruefen</a></li>
+        <li><a href="pruefen.html">prüfen</a></li>
       </ul>
     </nav>
   </header>
@@ -28,8 +28,6 @@
 
     <canvas id="formatSpinne"></canvas>
     <div class="slider-container" id="sliders"></div>
-
-    <p><a class="button" href="pruefen.html">→ Weiter zur Dimension prüfen</a></p>
   </main>
 
   <footer>
@@ -38,55 +36,56 @@
 
   <script>
     const labels = [
-      'Raum', 'Zeit + Prozess', 'Material + Hilfsmittel', 'Aufgaben + Fragen', 'Sozialform', 'Lernprodukt', 'Feedback + Reflexion'
+      'Umgebung', 'Zeit + Prozess', 'Ressourcen',
+      'Aufgaben + Kompetenzen', 'Sozialform', 'Lernergebnis', 'Feedback + Reflexion'
     ];
 
     const prompts = [
-      'Frage 1',
-      'Frage 2',
-      'Frage 3',
-      'Frage 4',
-      'Frage 5',
-      'Frage 6',
-      'Frage 7'
+      'Wie können wir einen gemeinsam akzeptierten Handlungsrahmen schaffen?',
+      'Wie können wir Zeit für Lernen im Diskurs schaffen?',
+      'Wie können wir Eigenverantwortung fördern und einfordern?',
+      'Wie können wir die Entwicklung gesellschaftlich relevanter Kompetenzen unterstützen?',
+      'Wie können wir zu einem lernfortschrittbegleitenden Lernen und Prüfen kommen?',
+      'Wie können wir die Studierenden ins Verstehen begleiten?',
+      'Frage zu Feedback und Reflexion (Platzhalter)'
     ];
 
     const labelsLeft = [
-      'Label 1 links',
-      'Label 2 links',
-      'Label 3 links',
-      'Label 4 links',
-      'Label 5 links',
-      'Label 6 links',
-      'Label 7 links'
+      'individuell',
+      'frontal',
+      'vorgeben',
+      'innen',
+      'Zeitpunkt',
+      'Bulimie',
+      'Platzhalter links'
     ];
 
     const labelsRight = [
-      'Label 1 rechts',
-      'Label 2 rechts',
-      'Label 3 rechts',
-      'Label 4 rechts',
-      'Label 5 rechts',
-      'Label 6 rechts',
-      'Label 7 rechts'
+      'gemeinsam',
+      'interaktiv',
+      'selber suchen',
+      'außen',
+      'Prozess',
+      'verstehen',
+      'Platzhalter rechts'
     ];
 
     const ctx = document.getElementById('formatSpinne').getContext('2d');
-    let chartData = {
+    const chartData = {
       labels: labels,
       datasets: [
         {
           data: Array(7).fill(3),
           fill: true,
-          borderColor: 'rgb(153, 102, 255)',
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          pointBackgroundColor: 'rgb(153, 102, 255)',
+          borderColor: 'rgb(255, 159, 64)',
+          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+          pointBackgroundColor: 'rgb(255, 159, 64)',
           pointBorderColor: '#fff'
         }
       ]
     };
 
-    let chart = new Chart(ctx, {
+    const chart = new Chart(ctx, {
       type: 'radar',
       data: chartData,
       options: {
@@ -100,6 +99,14 @@
               stepSize: 1,
               display: false
             }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: false
           }
         }
       }
