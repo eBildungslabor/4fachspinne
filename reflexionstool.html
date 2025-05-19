@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Werkstatt Prüfungsgestaltung</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <header>
+    <h1>Werkstatt Prüfungsgestaltung</h1>
+    <p>Workshop an der HAWK am 19. Mai 2025</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Ergebnisse</a></li>
+        <li><a href="fragen.html">Fragen</a></li>
+        <li><a href="reflexionstool.html">Reflexionstool</a></li>
+        <li><a href="mitschriebe.html">Mitschriebe</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Reflexionstool: Transformationsspinne</h2>
+    <p>Die entwickelten Fragen können für sich als Reflexionshilfe genutzt werden. Alternativ kann auch eine "Transformationsspinne" genutzt werden. Hierbei lassen sich nacheinander die folgenden Fragen stellen:</p>
+    <ol>
+      <li>Wo stehen wir aktuell in dem jeweiligen Bereich?</li>
+      <li>Was wären Ideen, um die Spinne "größer" auszufüllen?</li>
+      <li>Wie setzen wir das konkret um?</li>
+    </ol>
+
+    <p class="controls">
+      <label for="mode">Wähle einen Fokus:</label>
+      <select id="mode">
+        <option value="leben">leben</option>
+        <option value="lernen">lernen</option>
+        <option value="gestalten">gestalten</option>
+        <option value="pruefen">prüfen</option>
+      </select>
+    </p>
+
+    <canvas id="formatSpinne"></canvas>
+    <div class="slider-container" id="sliders"></div>
+  </main>
+
+  <footer>
+    <p>Erstellt von Nele Hirsch <a href="https://ebildungslabor.de">(eBildungslabor)</a> basierend auf Vorarbeiten des Instituts für zeitgemäße Prüfungskultur und Regina Schulz für die HAWK im Mai 2025 | Lizenz: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a></p>
+  </footer>
+
+<script>
+const labels = [
+  'Umgebung', 'Zeit + Prozess', 'Ressourcen',
+  'Aufgaben + Kompetenzen', 'Sozialform', 'Lernergebnis', 'Feedback + Reflexion'
+];
+
+const prompts = {
+  gestalten: [
+    'Wie können wir einen gemeinsam akzeptierten Handlungsrahmen schaffen?',
+    'Wie können wir Zeit für Lernen im Diskurs schaffen?',
+    'Wie können wir Eigenverantwortung fördern und einfordern?',
+    'Wie können wir die Entwicklung gesellschaftlich relevanter Kompetenzen unterstützen?',
+    'Wie können wir zu einem lernfortschrittbegleitenden Lernen und Prüfen kommen?',
+    'Wie können wir die Studierenden ins Verstehen begleiten?',
+    'Wie können wir gutes Feedback und Reflexion ermöglichen?'
+  ],
+  leben: [
+    'Wie können wir Umgebungen schaffen, in denen Gemeinschaft offen und vielfältig stattfinden kann?',
+    'Wie können wir die Lebenswelten der Hochschulangehörigen kontinuierlich einbeziehen?',
+    'Wie können wir individuelle Ressourcen der Gemeinschaft erkennen und nutzbar machen?',
+    'Wie können wir Sozialkompetenzen fördern?',
+    'Wie können wir Kollaboration verorten und fördern?',
+    'Wie stellen wir eine Verbindung zwischen Lernergebnis und Lebenswelten her?',
+    'Frage zu Feedback und Reflexion (Platzhalter)'
+  ],
+  lernen: [
+    'Wie können wir die Lernumgebung gestalten, um die Beziehung zwischen Lehrenden und Lernenden (sowie untereinander) zu fördern – für den Einzelnen und die Gemeinschaft?',
+    'Wie können wir Lernprozesse transparent, interaktiv, partizipativ und aufeinander aufbauend gestalten – unter Berücksichtigung individueller Lebensrealitäten?',
+    'Welche Ressourcen unterstützen die Lernprozesse?',
+    'Wie können wir beim Lernprozess individuelle und strukturelle Herausforderungen (Lebensrealitäten) berücksichtigen',
+    'Wie können wir miteinander lernen – und in welchen Formen und Formaten zusammenarbeiten?',
+    'Wie können wir Lernergebnisse erzielen und sichern?',
+    'Wie können wir sicherstellen, dass Lernende und Lehrende gewinnbringende Rückmeldungen (Feedback) erhalten?'
+  ],
+  pruefen: [
+    'Wie können wir eine Umgebung für studiengangsorientierte, lernzielorientierte und zukunftsfeste Prüfungsformate schaffen?',
+    'Wie können wir studiengangsorientierte und zukunftsfeste Prüfungsformate fördern?',
+    'Wie können wir passende Ressourcen für zukunftsfeste Prüfungsformate zur Verfügung stellen?',
+    'Frage zu Aufgaben + Kompetenzen (Platzhalter)',
+    'Frage zur Sozialform (Platzhalter)',
+    'Wie können wir zukunftsfeste Lernergebnisse sicherstellen?',
+    'Wie können wir mit Feedback und Reflexion kompetenzorientierte und zukunftsfeste Prüfungsformate fördern?'
+  ]
+};
+
+const labelSets = {
+  gestalten: [
+    ['individuell','gemeinsam'],
+    ['frontal','interaktiv'],
+    ['vorgeben','selber suchen'],
+    ['innen','außen'],
+    ['Zeitpunkt','Prozess'],
+    ['Bulimie','verstehen'],
+    ['nicht umgesetzt','umgesetzt']
+  ],
+  leben: [
+    ['statisch','wandelbar'],
+    ['direktiv','partizipativ'],
+    ['egozentriert','gemeinschaftszentriert'],
+    ['theoriegeleitet','praxisorientiert'],
+    ['hochschulintern','externes Umfeld'],
+    ['frontal','interaktiv'],
+    ['Platzhalter links','Platzhalter rechts']
+  ],
+  lernen: [
+    ['distanzorientiert','beziehungsorientiert'],
+    ['niedrig','hoch'],
+    ['hinderlich','förderlich'],
+    ['allgemein','individuell'],
+    ['einzeln und Einfalt','zusammen und Vielfalt'],
+    ['gar nicht','sehr viel'],
+    ['klappt nicht','klappt']
+  ],
+  pruefen: [
+    ['hinderlich','förderlich'],
+    ['Studierende unbegleitet','Studierende begleitet'],
+    ['hemmend','fördernd'],
+    ['Platzhalter links','Platzhalter rechts'],
+    ['Platzhalter links','Platzhalter rechts'],
+    ['starre Formate','flexible Formate'],
+    ['hemmend','unterstützend']
+  ]
+};
+
+const ctx = document.getElementById('formatSpinne').getContext('2d');
+const chartData = {
+  labels: labels,
+  datasets: [
+    {
+      data: Array(7).fill(3),
+      fill: true,
+      borderColor: 'rgb(75, 192, 192)',
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      pointBackgroundColor: 'rgb(75, 192, 192)',
+      pointBorderColor: '#fff'
+    }
+  ]
+};
+
+const chart = new Chart(ctx, {
+  type: 'radar',
+  data: chartData,
+  options: {
+    responsive: true,
+    scales: {
+      r: {
+        min: 1,
+        max: 6,
+        ticks: {
+          display: false
+        }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      title: { display: false }
+    }
+  }
+});
+
+const sliderContainer = document.getElementById('sliders');
+const modeSelect = document.getElementById('mode');
+
+function renderSliders(mode) {
+  sliderContainer.innerHTML = '';
+  prompts[mode].forEach((question, index) => {
+    const wrapper = document.createElement('div');
+    wrapper.style.marginBottom = '2em';
+
+    const label = document.createElement('label');
+    label.setAttribute('for', `slider-${index}`);
+    label.innerText = question;
+    label.style.display = 'block';
+    label.style.fontWeight = 'bold';
+    label.style.marginBottom = '0.5em';
+
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.min = 1;
+    slider.max = 6;
+    slider.step = 1;
+    slider.value = chartData.datasets[0].data[index];
+    slider.id = `slider-${index}`;
+    slider.style.width = '100%';
+
+    const description = document.createElement('div');
+    description.style.display = 'flex';
+    description.style.justifyContent = 'space-between';
+    description.style.fontSize = '0.9em';
+    description.style.color = '#555';
+    description.style.marginTop = '0.5em';
+    description.innerHTML = `<span>${labelSets[mode][index][0]}</span><span>${labelSets[mode][index][1]}</span>`;
+
+    slider.addEventListener('input', () => {
+      chartData.datasets[0].data[index] = parseInt(slider.value);
+      chart.update();
+    });
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(slider);
+    wrapper.appendChild(description);
+    sliderContainer.appendChild(wrapper);
+  });
+}
+
+modeSelect.addEventListener('change', (e) => {
+  renderSliders(e.target.value);
+});
+
+renderSliders('leben');
+</script>
+</body>
+</html>
