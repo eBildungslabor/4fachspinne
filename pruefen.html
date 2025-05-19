@@ -34,6 +34,36 @@
         'Raum', 'Zeit + Prozess', 'Material + Hilfsmittel', 'Aufgaben + Fragen', 'Sozialform', 'Lernprodukt', 'Feedback + Reflexion'
       ];
 
+      const prompts = [
+        'Wie können wir eine möglichst freie Wahl des Ortes der Prüfung ermöglichen?',
+        'Wie können wir Prüfungen so gestalten, dass Zeitpunkt und Dauer flexibel wählbar sind?',
+        'Wie können wir den Zugang zu vielfältigen und individuellen Materialien und Hilfsmitteln in Prüfungen ermöglichen?',
+        'Wie können wir offene, komplexe und individuelle Fragestellungen in Prüfungen integrieren?',
+        'Wie können wir Prüfungsformate schaffen, die Zusammenarbeit ermöglichen?',
+        'Wie können wir Prüfungsprodukte ermöglichen, die verschiedene Darstellungsformen zulassen?',
+        'Wie können wir formative, lernförderliche Rückmeldungen in Prüfungsprozesse integrieren?'
+      ];
+
+      const labelsLeft = [
+        'festgelegt',
+        'festgelegt',
+        'keine',
+        'vorgegebene, geschlossene Aufgabe',
+        'einzeln',
+        'handschriftlich',
+        'summativ'
+      ];
+
+      const labelsRight = [
+        'frei wählbar',
+        'frei wählbar',
+        'alle',
+        'offene, komplexe, ggf. individuelle Frage',
+        'zusammen',
+        'multimedial',
+        'formativ'
+      ];
+
       const ctx = document.getElementById('formatSpinne').getContext('2d');
       let chartData = {
         labels: labels,
@@ -69,16 +99,6 @@
         }
       });
 
-      const prompts = [
-        'Wie können wir eine möglichst freie Wahl des Ortes der Prüfung ermöglichen?',
-        'Wie können wir Prüfungen so gestalten, dass Zeitpunkt und Dauer flexibel wählbar sind?',
-        'Wie können wir den Zugang zu vielfältigen und individuellen Materialien und Hilfsmitteln in Prüfungen ermöglichen?',
-        'Wie können wir offene, komplexe und individuelle Fragestellungen in Prüfungen integrieren?',
-        'Wie können wir Prüfungsformate schaffen, die Zusammenarbeit ermöglichen?',
-        'Wie können wir Prüfungsprodukte ermöglichen, die verschiedene Darstellungsformen zulassen?',
-        'Wie können wir formative, lernförderliche Rückmeldungen in Prüfungsprozesse integrieren?'
-      ];
-
       const sliderContainer = document.getElementById('sliders');
 
       prompts.forEach((question, index) => {
@@ -97,6 +117,9 @@
         slider.value = chartData.datasets[0].data[index];
         slider.id = `slider-${index}`;
 
+        const description = document.createElement('div');
+        description.innerHTML = `<span style='float:left;'>${labelsLeft[index]}</span><span style='float:right;'>${labelsRight[index]}</span><div style='clear:both'></div>`;
+
         slider.addEventListener('input', () => {
           chartData.datasets[0].data[index] = parseInt(slider.value);
           chart.update();
@@ -104,6 +127,7 @@
 
         wrapper.appendChild(label);
         wrapper.appendChild(slider);
+        wrapper.appendChild(description);
         sliderContainer.appendChild(wrapper);
       });
     </script>
