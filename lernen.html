@@ -18,18 +18,18 @@
         <li><a href="leben.html">leben</a></li>
         <li><a href="lernen.html">lernen</a></li>
         <li><a href="gestalten.html">gestalten</a></li>
-        <li><a href="pruefen.html">pruefen</a></li>
+        <li><a href="pruefen.html">prüfen</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <h2>Dimension: lernen</h2>
+    <h2>Dimension: leben</h2>
 
     <canvas id="formatSpinne"></canvas>
     <div class="slider-container" id="sliders"></div>
 
-    <p><a class="button" href="gestalten.html">→ Weiter zur Dimension gestalten</a></p>
+    <p><a class="button" href="lernen.html">→ Weiter zur Dimension lernen</a></p>
   </main>
 
   <footer>
@@ -38,7 +38,8 @@
 
   <script>
     const labels = [
-      'Raum', 'Zeit + Prozess', 'Material + Hilfsmittel', 'Aufgaben + Fragen', 'Sozialform', 'Lernprodukt', 'Feedback + Reflexion'
+      'Raum', 'Zeit + Prozess', 'Material + Hilfsmittel',
+      'Aufgaben + Fragen', 'Sozialform', 'Lernprodukt', 'Feedback + Reflexion'
     ];
 
     const prompts = [
@@ -72,7 +73,7 @@
     ];
 
     const ctx = document.getElementById('formatSpinne').getContext('2d');
-    let chartData = {
+    const chartData = {
       labels: labels,
       datasets: [
         {
@@ -86,7 +87,7 @@
       ]
     };
 
-    let chart = new Chart(ctx, {
+    const chart = new Chart(ctx, {
       type: 'radar',
       data: chartData,
       options: {
@@ -100,6 +101,14 @@
               stepSize: 1,
               display: false
             }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: false
           }
         }
       }
