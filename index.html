@@ -1,257 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Formatspinne: Perspektiven auf zeitgemäße Prüfungsformate</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    canvas {
-      max-width: 600px;
-      margin: 20px auto;
-    }
-    .controls {
-      max-width: 600px;
-      margin: 0 auto 20px;
-      text-align: center;
-    }
-    .controls select {
-      padding: 8px;
-      font-size: 1em;
-    }
-    .slider-container {
-      max-width: 600px;
-      margin: 20px auto;
-    }
-    .slider-label {
-      margin-top: 10px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    span {
-      display: block;
-      font-size: 0.9em;
-      color: #555;
-      margin-top: 3px;
-    }
-    input[type=range] {
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  <h2>Formatspinne: Perspektiven auf zeitgemäße Prüfungsformate</h2>
-  <p class="controls">
-    <label for="mode">Wähle deinen Fokus:</label>
-    <select id="mode">
-      <option value="original">Formatspinne: Zeitgemäße Prüfungsformate</option>
-      <option value="student">Student Agency</option>
-      <option value="coagency">Transformation mitgestalten</option>
-      <option value="combined">Wellbeing</option>
-    </select>
-  </p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">    <title>Werkstatt Prüfungsgestaltung</title>
+          <script src="common.js" defer></script>
+  </head>
+  <body>
 
-  <canvas id="formatSpinne"></canvas>
-  <div class="slider-container" id="sliders"></div>
+  <header>
+    <h1>Werkstatt Prüfungsgestaltung</h1>
+    <p>Workshop an der HAWK am 19. Mai 2025</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Start</a></li>
+              <li><a href="pruefen.html">Prüfen</a></li>
+        <li><a href="lernen.html">Lernen</a></li>
+        <li><a href="transformation.html">Transformation</a></li>
+              <li><a href="wohlbefinden.html">Wohlbefinden</a></li>
 
-  <script>
-    const labels = [
-      'Raum', 'Zeit + Prozess', 'Material', 'Aufgaben + Fragen', 'Hilfsmittel', 'Sozialform', 'Produkt', 'Feedback + Reflexion'
-    ];
+      </ul>
+    </nav>
+  </header>
 
-    const ctx = document.getElementById('formatSpinne').getContext('2d');
-    let chartData = {
-      labels: labels,
-      datasets: [
-        {
-          label: 'Zeitgemäße Prüfungsformate',
-          data: Array(8).fill(3),
-          fill: true,
-          borderColor: 'rgb(75, 192, 75)',
-          backgroundColor: 'rgba(75, 192, 75, 0.2)',
-          pointBackgroundColor: 'rgb(75, 192, 75)',
-          pointBorderColor: '#fff'
-        }
-      ]
-    };
+  <main>
+    <h2>👋 Willkommen zur Werkstatt Prüfungsgestaltung!</h2>
+  <p>Wir entwickeln konkrete Ansätze zu einer veränderten Prüfungsgestaltung. 
+  
+  <h3>Vorgehen</h3>
+  
+<p>  Wir gehen jeweils in diesen Schritten vor:</p>
+<ol>
+<li>Wo stehen wir aktuell in jeden der vier Bereiche?
+<li>Wie können wir die Spinne größer ausfüllen?
+<li>Was halten wir dazu fest?
+</ol>
+</p>
+<p>Für den kollaborativen Mitschrieb nutzen wir <a href="">dieses Etherpad</a></p>  
+  
+  <p>Wir haben für uns diese Reflexionstools entwickelt:</p>
 
-    let chart = new Chart(ctx, {
-      type: 'radar',
-      data: chartData,
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            min: 1,
-            max: 6,
-            startAngle: 0,
-            ticks: {
-              stepSize: 1,
-              display: false
-            }
-          }
-        }
-      }
-    });
+        
+<p>  <a class="button" href="pruefen.html">Prüfen</a></p>
+<p>        <a class="button" href="lernen.html">Lernen</a> </p>
+<p>        <a class="button" href="transformation.html">Transformation</a></p>
+<p>        <a class="button" href="wohlbefinden.html">Wohlbefinden</a></p>
 
-    const sliderContainer = document.getElementById('sliders');
-    const modeSelect = document.getElementById('mode');
 
-    const prompts = {
-      original: [
-        'Wo findet die Prüfung statt?',
-        'Wann findet die Prüfung statt?',
-        'Welche Materialien werden genutzt?',
-        'Wie offen sind die Aufgabenstellungen oder Fragen?',
-        'Welche Hilfsmittel sind erlaubt?',
-        'In welcher Sozialform wird geprüft?',
-        'Wie sieht das Produkt aus?',
-        'Wie erfolgt das Feedback?'
-      ],
-      student: [
-        'Können Lernende den Lernraum mitgestalten oder selbst wählen?',
-        'Können Lernende das Lerntempo oder den Lernprozess mitbestimmen?',
-        'Können Lernende Materialien selbst wählen oder entwickeln?',
-        'Können Lernende Aufgaben mitentwicklen oder eigene (Forschungs-)Fragen formulieren?',
-        'Können Lernende Methoden und (digitale) Tools auswählen oder entwickeln?',
-        'Können Lernende entscheiden, ob oder mit wem sie wie zusammenarbeiten?',
-        'Lernende können das Produkt ihres Lernens selbst wählen oder gestalten?',
-        'Können Lernende Feedback- oder Reflexionsprozesse mitgestalten oder selbst initiieren?'
-      ],
-      coagency: [
-        'Wo wirkt das Lernen?',
-        'Ist das Lernen nachhaltig?',
-        'Sind Materialien für andere zugänglich?',
-        'Beinhalten Aufgaben + Fragen die Lösung realer Probleme?',
-        'Sind die Hilfsmittel für andere zugänglich?',
-        'Entstehen Lernnetzwerke/-Communities?',
-        'Wird etwas Nachhaltiges geschaffen?',
-        'Gibt es eine Kultur des gemeinsamen Feedbacks?'
-      ],
-      combined: [
-        'Fühlen sich alle Lernenden im Raum sicher, willkommen und zugehörig?',
-        'Passt der Lernprozess und zeitliche Ablauf zu den individuellen Bedürfnissen der Lernenden?',
-        'Passen die Materialien zu den individuellen Bedürfnissen der Lernenden?',
-        'Können Lernende sich mit Fragen beschäftigen, die ihnen wichtig sind?',
-        'Passen die Hilfsmittel zu den individuellen Bedürfnissen der Lernenden?',
-        'Verbindet das Lernen?',
-        'Können Lernende ein Produkt wählen, das ihren Bedürfnissen und Stärken entspricht?',
-        'Bekommen/geben Lernende transformierendes Feedback?'
-      ]
-    };
+    
+  </main>
 
-    const labelsLeft = {
-      original: ['festgelegt', 'festgelegt', 'keine', 'vorgegebene, geschlossene Aufgabe', 'keine', 'einzeln', 'handschriftlich', 'summativ'],
-      student: ['festgelegter Raum','fester Zeitplan','vorgegebene Materialien','geschlossene Aufgaben','keine Auswahl','feste Einzelarbeit','Format vorgegeben','nur Lehrkraft gesteuert'],
-      coagency: ['im Klassenraum','kurzfristig','nicht zugänglich','fiktive Probleme','individuell','kein Netzwerk','vergänglich','folgenlos'],
-      combined: [
-        'nicht sicher/zugehörig',
-        'starr und überfordernd',
-        'fremd, uninteressant, nicht anschlussfähig',
-        'fremdbestimmt, irrelevant',
-        'überfordernd oder unklar',
-        'einsam, isoliert',
-        'fremdgesteuert, belanglos',
-        'nicht vorhanden oder verletzend'
-      ]
-    };
+<footer>
+  <p>Erstellt von Nele Hirsch <a href="https://ebildungslabor.de">(eBildungslabor)</a> basierend auf Vorarbeiten des Instituts für zeitgemäße Prüfungskultur und Regina Schulz für die HAWK im Mai 2025 | Lizenz: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a></p>
+</footer>
 
-    const labelsRight = {
-      original: ['frei wählbar', 'frei wählbar', 'alle', 'offene, komplexe, ggf. individuelle Frage', 'multimedial', 'zusammen', 'multimedial', 'formativ'],
-      student: ['selbstgewählter Raum','selbstbestimmter Lernprozess','selbstgewählte/erstellte Materialien','eigene Fragestellungen','eigene Methoden/Tools','frei gewählte Zusammenarbeit','frei wählbares Produkt','eigeninitiierte Reflexion'],
-      coagency: ['digital + global','langfristig und wirkungsvoll','für alle sichtbar','echte Probleme','gemeinschaftlich nutzbar','Community-bildend','nachhaltig','transformierend'],
-      combined: [
-        'sicher, willkommen, zugehörig',
-        'individuell flexibel & stimmig',
-        'relevant, zugänglich, motivierend',
-        'bedeutsam, motivierend, authentisch',
-        'individuell unterstützend',
-        'verbunden, kooperativ, stärkend',
-        'persönlich sinnvoll und stimmig',
-        'stärkend, entwicklungsorientiert'
-      ]
-    };
-
-    function renderSliders(mode) {
-      sliderContainer.innerHTML = '';
-      prompts[mode].forEach((question, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('slider-label');
-
-        const label = document.createElement('label');
-        label.setAttribute('for', `slider-${index}`);
-        label.innerText = question;
-
-        const slider = document.createElement('input');
-        slider.type = 'range';
-        slider.min = 1;
-        slider.max = 6;
-        slider.step = 1;
-        slider.value = chartData.datasets[0].data[index];
-        slider.id = `slider-${index}`;
-
-        const description = document.createElement('div');
-        if (labelsLeft[mode] && labelsLeft[mode][index] && labelsRight[mode][index]) {
-          if (mode === 'student') {
-            description.innerHTML = `
-              <div style='display: flex; justify-content: space-between; align-items: center;'>
-                <span style='width: 30%; text-align: left;'>${labelsLeft[mode][index]}</span>
-                <span style='width: 40%; text-align: center;'>partizipativ ausgehandelt</span>
-                <span style='width: 30%; text-align: right;'>${labelsRight[mode][index]}</span>
-              </div>`;
-          } else {
-            description.innerHTML = `<span style='float:left;'>${labelsLeft[mode][index]}</span><span style='float:right;'>${labelsRight[mode][index]}</span><div style='clear:both'></div>`;
-          }
-        }
-
-        slider.addEventListener('input', () => {
-          chartData.datasets[0].data[index] = parseInt(slider.value);
-          chart.update();
-        });
-
-        wrapper.appendChild(label);
-        wrapper.appendChild(slider);
-        if (description) wrapper.appendChild(description);
-        sliderContainer.appendChild(wrapper);
-      });
-    }
-
-    modeSelect.addEventListener('change', (e) => {
-      const mode = e.target.value;
-      renderSliders(mode);
-
-      if (mode === 'original') {
-        chartData.datasets[0].label = 'Zeitgemäße Prüfungsformate';
-        chartData.datasets[0].borderColor = 'rgb(75, 192, 75)';
-        chartData.datasets[0].backgroundColor = 'rgba(75, 192, 75, 0.2)';
-        chartData.datasets[0].pointBackgroundColor = 'rgb(75, 192, 75)';
-      } else if (mode === 'student') {
-        chartData.datasets[0].label = 'Student Agency';
-        chartData.datasets[0].borderColor = 'rgb(54, 162, 235)';
-        chartData.datasets[0].backgroundColor = 'rgba(54, 162, 235, 0.2)';
-        chartData.datasets[0].pointBackgroundColor = 'rgb(54, 162, 235)';
-      } else if (mode === 'coagency') {
-        chartData.datasets[0].label = 'Transformation mitgestalten';
-        chartData.datasets[0].borderColor = 'rgb(255, 99, 132)';
-        chartData.datasets[0].backgroundColor = 'rgba(255, 99, 132, 0.2)';
-        chartData.datasets[0].pointBackgroundColor = 'rgb(255, 99, 132)';
-      } else if (mode === 'combined') {
-        chartData.datasets[0].label = 'Wellbeing';
-        chartData.datasets[0].borderColor = 'rgb(255, 159, 64)';
-        chartData.datasets[0].backgroundColor = 'rgba(255, 159, 64, 0.2)';
-        chartData.datasets[0].pointBackgroundColor = 'rgb(255, 159, 64)';
-      }
-
-      chart.update();
-    });
-
-    renderSliders('original');
-  </script>
-</body>
+  </body>
 </html>
